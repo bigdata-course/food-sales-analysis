@@ -10,11 +10,14 @@
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
 
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Loading Bootstrap -->
-    <!--<link href="flatui/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="shortcut icon" href="img/search.ico">
 
     <!-- Loading Flat UI -->
     <link href="flatui/css/flat-ui.css" rel="stylesheet">
+
+    <link href="select2/css/select2.min.css" rel="stylesheet" />
+    <script src="select2/js/select2.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -22,8 +25,7 @@
     <script src="flatui/js/vendor/respond.min.js"></script>
     <![endif]-->
 
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="shortcut icon" href="img/search.ico">
+
     <!--<script type="text/javascript" src="js/index.js"></script>-->
    <script type="text/javascript">
      	function isEmpty()
@@ -61,16 +63,10 @@
                             </div>
                         </div>
                         <div class="col-lg-1" style="margin-top: 3px">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                    搜索类型
-                                    <span class="caret"></span>
-                                </button>
                             <select name="searchType" class="form-control select select-info select-block mbl" style="min-width:90px" >
                     			<option value="餐厅">餐厅</option>
                    			 	<option value="菜品">菜品</option>
                 			</select>
-                            </div>
                         </div>
                     </form>
                 </div>
@@ -135,7 +131,9 @@
 
     <script src="flatui/js/vendor/jquery.min.js"></script>
     <script src="flatui/js/flat-ui.min.js"></script>
-
+    <script type="text/javascript">
+        $("select").select2({dropdownCssClass: 'dropdown-inverse'});
+    </script>
     <script type="text/javascript">
     $(function(){
         //$('table tr:not(:first)').remove();

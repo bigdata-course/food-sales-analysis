@@ -21,10 +21,6 @@
     <link href="select2/css/select2.min.css" rel="stylesheet" />
     <script src="select2/js/select2.min.js"></script>
 
-    <script src="bootstrap-table/bootstrap-table.min.css"></script>
-    <script src="bootstrap-table/bootstrap-table.js"></script>
-    <script src="bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
     <script src="flatui/js/vendor/html5shiv.js"></script>
@@ -111,30 +107,33 @@
             </table>
         </div>
         <div class="row">
-            <div>
-                <ul class="pagination">
-                    <li class="previous">
-                        <a href="#" class="fui-arrow-left"></a>
-                    </li>
-
-                    <!-- Make dropdown appear above pagination -->
-                    <li class="pagination-dropdown dropup">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fui-triangle-up"></i>
-                        </a>
-                        <!-- Dropdown menu -->
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">10-20</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="next">
-                        <a href="#" class="fui-arrow-right"></a>
-                    </li>
-                </ul>
-            </div>
+            <div class="alert alert-success" role="alert">
+				共${page.totalRecords}条记录 共${page.totalPages}页 当前第${page.pageNo}页
+			</div>
+			<a href="searchFood.do?keyword=${page.keyword}&pageNo=${page.topPageNo}" class="btn btn-primary">首页</a>
+            <c:choose>
+              <c:when test="${page.pageNo!=1}">
+                  <a href="searchFood.do?keyword=${page.keyword}&pageNo=${page.previousPageNo}">
+                  	<input type="button" class="btn btn-primary" name="previousPage" value="上一页" />
+                  </a>
+              </c:when>
+              <c:otherwise>
+                  <input type="button" class="btn btn-primary" disabled="disabled" name="previousPage" value="上一页" />
+              </c:otherwise>
+            </c:choose>
+            <c:choose>
+              <c:when test="${page.pageNo != page.totalPages}">
+                <a href="searchFood.do?keyword=${page.keyword}&pageNo=${page.nextPageNo}">
+                	<input type="button" class="btn btn-primary" name="nextPage" value="下一页" />
+                </a>
+              </c:when>
+              <c:otherwise>
+                  <input type="button" class="btn btn-primary" disabled="disabled" name="nextPage" value="下一页" />
+              </c:otherwise>
+            </c:choose>
+			<a href="searchFood.do?keyword=${page.keyword}&pageNo=${page.bottomPageNo}">
+				<input type="button" class="btn btn-primary" name="lastPage" value="尾页">
+			</a>  
         </div>
     </div>
     <div id="footer">
