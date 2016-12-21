@@ -186,6 +186,32 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-success">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">推荐菜品搭配</div>
+
+                    <!-- Table -->
+                    <table class="table table-striped table-hover" id="table1">
+                        <tr>
+                            <th>序号</th>
+                            <th>菜名</th>
+                            <th>价格</th>
+                            <th>类别</th>
+                        </tr>
+  						<c:forEach items="${groupFoods}" var="foodSet" varStatus="s">
+                        <tr>
+                            <td></td>
+                            <td><a href='foodInfo.do?foodId=${foodSet.foodId}'>${foodSet.foodName}</a></td>
+                            <td>${foodSet.unitMoney}</td>
+                            <td>${foodSet.cateName}</td>
+                        </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </div>
+         </div>
     </div>
     <div id="footer">
         <p>本站所有数据来自屏芯科技有限公司，仅限学术研究，请勿用于商业用途</p>
