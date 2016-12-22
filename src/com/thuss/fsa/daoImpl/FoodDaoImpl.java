@@ -104,7 +104,7 @@ public class FoodDaoImpl extends BaseDaoImpl implements FoodDao {
 		String sql = "select top 10 s.food_id,s.total_num,f.food_name from "
 				+" (select food_id,SUM(total_num) as total_num from food_daily where check_date "
 				+" BETWEEN '2016-06-24' and '2016-06-30' GROUP by food_id) as s,food f "
-				+" where s.food_id = f.food_id order by total_num desc";
+				+" where s.food_id = f.food_id  and food_name not like '%串%' and food_name not like '%烤%' order by total_num desc";
 		Query query = this.getSession().createSQLQuery(sql);
 		List list = query.list();
 		List<HotFoodItem> itemList = new ArrayList<HotFoodItem>();
@@ -128,7 +128,7 @@ public class FoodDaoImpl extends BaseDaoImpl implements FoodDao {
 		String sql = "select top 10 s.food_id,f.food_name,s.total_num from "
 				+ " (select food_id,sum(total_num) as total_num from food_daily "
 				+ " where hotel_id = ? GROUP BY food_id ) as s,food f "
-				+ " where s.food_id=f.food_id ORDER BY total_num DESC";
+				+ " where s.food_id=f.food_id  ORDER BY total_num DESC";
 		Query query = this.getSession().createSQLQuery(sql);
 		query.setParameter(0,hotelId);
 		List list = query.list();
@@ -317,6 +317,8 @@ public class FoodDaoImpl extends BaseDaoImpl implements FoodDao {
 				item.setFoodId(((BigInteger)values[0]).longValue());
 				item.setHotelId(((BigInteger)values[1]).longValue());
 				item.setFoodName((String)values[2]);
+				item.setUnitMoney((Integer)values[3]);
+				item.setCateName((String)values[5]);
 				itemList.add(item);
 			}
 		}
