@@ -44,7 +44,7 @@
                 </div>
                 <div class="panel-primary">
                     <ul class="nav nav-pills" role="tablist">
-                        <li role="presentation"><a href="#">所属餐厅名<span class="badge">${hotel.hotelName}</span></a></li>
+                        <li role="presentation"><a href="hotelInfo.do?hotelId=${hotel.hotelId}">所属餐厅名<span class="badge">${hotel.hotelName}</span></a></li>
                         <li role="presentation"><a href="#">类别<span class="badge">${food.cateName}</span></a></li>
                         <li role="presentation"><a href="#">价格<span class="badge">${food.unitMoney}</span></a></li>
                     </ul>
