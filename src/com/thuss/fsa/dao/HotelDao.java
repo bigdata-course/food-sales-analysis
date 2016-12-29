@@ -28,4 +28,6 @@ public interface HotelDao {
 	public int searchRowCount(String keyword);
 
 	public List<HotelItem> searchForPage(String keyword, int offset, int length);
+
+	List<IncomeItem> getHistoryIncome(long hotelId);
 }

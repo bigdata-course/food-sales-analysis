@@ -98,12 +98,38 @@ public class HotelDaoImpl extends BaseDaoImpl implements HotelDao {
 			}
 		}
 		
-		sql = "select the_date,total_need_money from hotel_predict "
-				+ "where the_date BETWEEN '2016-07-01' AND '2016-07-07' "
-				+ "and hotel_id=? ORDER BY the_date";
-		query = this.getSession().createSQLQuery(sql);
+//		sql = "select the_date,total_need_money from hotel_predict "
+//				+ "where the_date BETWEEN '2016-07-01' AND '2016-07-07' "
+//				+ "and hotel_id=? ORDER BY the_date";
+//		query = this.getSession().createSQLQuery(sql);
+//		query.setParameter(0,hotelId);
+//		list = query.list();
+//		if (list != null && list.size() > 0)
+//		{
+//			for(int i = 0; i < list.size();i++)
+//			{
+//				IncomeItem item = new IncomeItem();
+//				Object [] values = (Object [])list.get(i);
+//				item.setDate((String)values[0]);
+//				double tmp = DoubleUtil.double1bit((double)values[1]);
+//				item.setIncome(tmp);
+//				itemList.add(item);
+//			}
+//		}
+		
+		return itemList;
+	}
+	@Override
+	public List<IncomeItem> getHistoryIncome(long hotelId) {
+		
+		List<IncomeItem> itemList = new ArrayList<IncomeItem>();
+		//历史营业额
+		String sql ="select the_date,total_need_money from hotel_daily "
+				+ "where the_date BETWEEN '2016-06-10' AND '2016-06-23' AND hotel_id=? ORDER BY the_date";
+		Query query = this.getSession().createSQLQuery(sql);
 		query.setParameter(0,hotelId);
-		list = query.list();
+		List list = query.list();
+
 		if (list != null && list.size() > 0)
 		{
 			for(int i = 0; i < list.size();i++)
@@ -111,12 +137,10 @@ public class HotelDaoImpl extends BaseDaoImpl implements HotelDao {
 				IncomeItem item = new IncomeItem();
 				Object [] values = (Object [])list.get(i);
 				item.setDate((String)values[0]);
-				double tmp = DoubleUtil.double1bit((double)values[1]);
-				item.setIncome(tmp);
+				item.setIncome((double)values[1]);
 				itemList.add(item);
 			}
 		}
-		
 		return itemList;
 	}
 	

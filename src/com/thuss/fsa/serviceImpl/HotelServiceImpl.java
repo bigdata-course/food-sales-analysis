@@ -59,6 +59,11 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	@Override
+	public List<IncomeItem> getHistoryIncome(long hotelId) {
+		return hotelDao.getHistoryIncome(hotelId);
+	}
+	
+	@Override
 	public List<Hotel> getSimiliarHotels(long hotelId) {
 		
 		return hotelDao.getSimiliarHotels(hotelId);
@@ -69,13 +74,13 @@ public class HotelServiceImpl implements HotelService {
 		List<SimiliarIncomeList> silists  = new ArrayList<SimiliarIncomeList>();
 		SimiliarIncomeList silist = new SimiliarIncomeList();
 		silist.setHotelName(hotel.getHotelName());
-		silist.setIncomes(getIncomeList(hotel.getHotelId()));
+		silist.setIncomes(getHistoryIncome(hotel.getHotelId()));
 		silists.add(silist);
 		for(Hotel h:similiarHotels)
 		{
 			silist = new SimiliarIncomeList();
 			silist.setHotelName(h.getHotelName());
-			silist.setIncomes(getIncomeList(h.getHotelId()));
+			silist.setIncomes(getHistoryIncome(h.getHotelId()));
 			silists.add(silist);
 		}
 		return silists;

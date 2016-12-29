@@ -119,10 +119,10 @@
 			<div class="alert alert-success" role="alert">
 				共${page.totalRecords}条记录 共${page.totalPages}页 当前第${page.pageNo}页
 			</div>
-			<a href="searchFood.do?keyword=${page.keyword}&pageNo=${page.topPageNo}" class="btn btn-primary">首页</a>
+			<a href="search.do?searchType=${page.searchType}&keyword=${page.keyword}&pageNo=${page.topPageNo}" class="btn btn-primary">首页</a>
             <c:choose>
               <c:when test="${page.pageNo!=1}">
-                  <a href="searchFood.do?keyword=${page.keyword}&pageNo=${page.previousPageNo}">
+                  <a href="search.do?searchType=${page.searchType}&keyword=${page.keyword}&pageNo=${page.previousPageNo}">
                   	<input type="button" class="btn btn-primary" name="previousPage" value="上一页" />
                   </a>
               </c:when>
@@ -132,7 +132,7 @@
             </c:choose>
             <c:choose>
               <c:when test="${page.pageNo != page.totalPages}">
-                <a href="searchFood.do?keyword=${page.keyword}&pageNo=${page.nextPageNo}">
+                <a href="search.do?searchType=${page.searchType}&keyword=${page.keyword}&pageNo=${page.nextPageNo}">
                 	<input type="button" class="btn btn-primary" name="nextPage" value="下一页" />
                 </a>
               </c:when>
@@ -140,7 +140,7 @@
                   <input type="button" class="btn btn-primary" disabled="disabled" name="nextPage" value="下一页" />
               </c:otherwise>
             </c:choose>
-			<a href="searchFood.do?keyword=${page.keyword}&pageNo=${page.bottomPageNo}">
+			<a href="search.do?searchType=${page.searchType}&keyword=${page.keyword}&pageNo=${page.bottomPageNo}">
 				<input type="button" class="btn btn-primary" name="lastPage" value="尾页">
 			</a>  
         </div>

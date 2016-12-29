@@ -31,7 +31,7 @@ public interface FoodDao {
 
 	public List<SaleItem> getSalesList(long foodId);
 
-	public List<Food> getSimiliarFoods(Food f);
+	public List<Food> getSimiliarFoods(Food food);
 
 	List<SaleItem> getSSalesList(long foodId);
 

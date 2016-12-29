@@ -179,7 +179,7 @@ public class FoodDaoImpl extends BaseDaoImpl implements FoodDao {
 		List<SaleItem> itemList = new ArrayList<SaleItem>();
 		
 		String sql = "select check_date,total_num from food_daily "
-				+ "WHERE food_id=? ORDER BY check_date";
+				+ "WHERE food_id=? and check_date between '2016-06-17' and '2016-06-30' ORDER BY check_date";
 		Query query = this.getSession().createSQLQuery(sql);
 		query.setParameter(0,foodId);
 		List list = query.list();
@@ -195,22 +195,23 @@ public class FoodDaoImpl extends BaseDaoImpl implements FoodDao {
 				itemList.add(item);
 			}
 		}
-		sql = "select check_date,total_num from food_predict "
-				+ "WHERE food_id=? ORDER BY check_date";
-		query = this.getSession().createSQLQuery(sql);
-		query.setParameter(0,foodId);
-		list = query.list();
-		if (list != null && list.size() > 0)
-		{
-			for(int i = 0; i < list.size();i++)
-			{
-				SaleItem item = new SaleItem();
-				Object [] values = (Object [])list.get(i);
-				item.setDate((String)values[0]);
-				item.setSoldNum((Integer)values[1]);
-				itemList.add(item);
-			}
-		}
+//		sql = "select check_date,total_num from food_predict "
+//				+ "WHERE food_id=? and check_date between '2016-07-01' and '2016-07-07' ORDER BY check_date";
+//		query = this.getSession().createSQLQuery(sql);
+//		query.setParameter(0,foodId);
+//		list = query.list();
+//		if (list != null && list.size() > 0)
+//		{
+//			for(int i = 0; i < list.size();i++)
+//			{
+//				SaleItem item = new SaleItem();
+//				Object [] values = (Object [])list.get(i);
+//				item.setDate((String)values[0]);
+//				item.setSoldNum((Integer)values[1]);
+//				itemList.add(item);
+//			}
+//		}
+		
 		return itemList;
 	}
 	
@@ -221,7 +222,7 @@ public class FoodDaoImpl extends BaseDaoImpl implements FoodDao {
 		List<SaleItem> itemList = new ArrayList<SaleItem>();
 		
 		String sql = "select check_date,total_num from food_daily "
-				+ "WHERE food_id=? ORDER BY check_date";
+				+ "WHERE food_id=? and check_date between '2016-06-10' and '2016-06-23' ORDER BY check_date";
 		Query query = this.getSession().createSQLQuery(sql);
 		query.setParameter(0,foodId);
 		List list = query.list();
