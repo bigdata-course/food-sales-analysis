@@ -1,6 +1,10 @@
 package com.thuss.fsa.serviceImpl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,16 +79,81 @@ public class FoodServiceImpl implements FoodService {
 	}
 	@Override
 	public List<SaleItem> getSalesList(long foodId) {
-		return foodDao.getSalesList(foodId);
+		
+		List<SaleItem> list = foodDao.getSalesList(foodId);
+		
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		c.set(2016,6-1,17);
+		for(int i=0;i < 14;i++)
+		{
+			 String date = df.format(c.getTime());
+			 boolean flag = false;
+			 for(SaleItem s:list)
+			 {
+				 if(s.getDate().equals(date))
+				 {
+					 flag = true;
+					 break;
+				 }
+			 }
+			 if(!flag)
+			 {
+				 SaleItem item = new SaleItem();
+				 item.setDate(date);
+				 item.setSoldNum(0);
+				 list.add(item);
+				 
+			 }
+			 c.add(Calendar.DAY_OF_MONTH,1);
+		}
+		
+		Collections.sort(list, new SortByDate());
+
+		return list;
 	}
+	class SortByDate implements Comparator {
+		 public int compare(Object o1, Object o2) {
+		  SaleItem s1 = (SaleItem) o1;
+		  SaleItem s2 = (SaleItem) o2;
+		  return s1.getDate().compareTo(s2.getDate());
+		 }
+	};
 	@Override
 	public List<SaleItem> getSSalesList(long foodId) {
-		return foodDao.getSSalesList(foodId);
+		List<SaleItem> list = foodDao.getSSalesList(foodId);
+		
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		c.set(2016,6-1,10);
+		for(int i=0;i < 14;i++)
+		{
+			 String date = df.format(c.getTime());
+			 boolean flag = false;
+			 for(SaleItem s:list)
+			 {
+				 if(s.getDate().equals(date))
+				 {
+					 flag = true;
+					 break;
+				 }
+			 }
+			 if(!flag)
+			 {
+				 SaleItem item = new SaleItem();
+				 item.setDate(date);
+				 item.setSoldNum(0);
+				 list.add(item);
+			 }
+			 c.add(Calendar.DAY_OF_MONTH,1);
+		}
+		Collections.sort(list, new SortByDate());
+		return list;
 	}
 	@Override
-	public List<Food> getSimiliarFoods(Food f) {
+	public List<Food> getSimiliarFoods(Food food) {
 		
-		return foodDao.getSimiliarFoods(f);
+		return foodDao.getSimiliarFoods(food);
 	}
 	@Override
 	public List<SimiliarSaleList> getSimiliarSales(Food food,

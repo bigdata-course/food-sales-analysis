@@ -37,4 +37,6 @@ public interface HotelService {
 
 	public Page searchForPage(String keyword, int currentPage, int pageSize);
 
+	List<IncomeItem> getHistoryIncome(long hotelId);
+
 }

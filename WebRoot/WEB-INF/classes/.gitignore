@@ -1,9 +1,1 @@
 /com
-/db.properties
-/dictionary.xml
-/ehcache.xml
-/log4j.properties
-/messages_zh_CN.properties
-/spring-context.xml
-/spring-db.xml
-/springmvc.xml

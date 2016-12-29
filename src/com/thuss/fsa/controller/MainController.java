@@ -49,7 +49,6 @@ public class MainController {
 			Page page = hotelService.searchForPage(keyword, Integer.valueOf(pageNo),20);
 			page.setSearchType(searchType);
 			modal.addAttribute("page",page);
-			System.out.println("canting");
 			return "hotelResults";
 		}
 		else
@@ -57,7 +56,6 @@ public class MainController {
 			Page page = foodService.searchForPage(keyword, Integer.valueOf(pageNo),20);
 			page.setSearchType(searchType);
 			modal.addAttribute("page",page);
-			System.out.println("cate");
 			return "foodResults";
 		}
 	}

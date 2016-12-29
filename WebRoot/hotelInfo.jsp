@@ -59,126 +59,141 @@
                 <div id="container" style="min-width:400px;height:400px"></div>
                 <script>
                 	$(document).ready(function () {
-                   		var hotelName = ${hotelName};
-                   		var dateList = ${dateList};
-                   		var incomeNum = ${incomeNum};
-                   		var title = {
-                                text: '历史营业额与预测图',
-                                x: -20 //center
-                            };
-//                            subtitle: {
-//                                text: 'Source: WorldClimate.com',
-//                                x: -20
-//                            },
-                        var xAxis = {
-                                categories: dateList
-                            };
-                        var yAxis = {
-                                title: {
-                                    text: '营业额 (元)'
-                                },
-                                plotLines: [{
-                                    value: 0,
-                                    width: 1,
-                                    color: '#808080'
-                                }]
-                            };
-                        var tooltip = {
-                                valueSuffix: '元'
-                            };
-                        var legend = {
-                                layout: 'vertical',
-                                align: 'right',
-                                verticalAlign: 'middle',
-                                borderWidth: 0
-                            };
-                        var series = [
-                            {
-                            	name: hotelName,
-                                data: incomeNum
-                            }
-                        ];
-                            
-                        var json = {};
-                        json.title = title;
-                        //json.subtitle = subtitle;
-                        json.tooltip = tooltip;
-                        json.xAxis = xAxis;
-                        json.yAxis = yAxis;
-                        json.series = series;
-                        json.legend = legend;
-                        $('#container').highcharts(json);
+                   	 	var colors = Highcharts.getOptions().colors;
+                   	 $.ajax({
+                         data:{
+                             hotelId:${hotel.hotelId}
+                         },
+                         url: "hotelIncome.do",
+                         dataType: "json",
+                         success:  function(data){
+                             $('#container').highcharts({
+                                 title: {
+                                     text: '历史营业额与预测图',
+                                     x: -20 //center
+                                 },
+                                 chart: {
+                                     type: 'line'
+                                 },
+                                 /*subtitle: {
+                                     text: 'Source: WorldClimate.com',
+                                     x: -20
+                                 },*/
+                                 xAxis: {
+                                       //categories: dateList,
+                                 	  type: 'datetime',  
+                                 	  dateTimeLabelFormats : { 
+                                           day : '%Y-%m-%d',
+                                       },
+                                       tickInterval: 24 * 3600 * 1000//间隔2天
+                                 },
+                                 yAxis: {
+                                 	  title: {
+                                           text: '营业额 (元)'
+                                       },
+                                       plotLines: [{
+                                           value: 0,
+                                           width: 1,
+                                           color: '#808080'
+                                       }]
+                                 },
+                                 tooltip: {
+                                 	 valueSuffix: '元'
+                                 },
+                                 legend: {
+                                 	 layout: 'vertical',
+                                      align: 'right',
+                                      verticalAlign: 'middle',
+                                      borderWidth: 0
+                                 },
+                                 series: [{
+                                 	 name: data.hotelName,
+                                     data:data.incomes,
+                                     pointStart: Date.UTC(2016,5,24),
+                                     pointIntervalUnit: 'day',
+                                     zoneAxis: 'x',
+                                     zones: [{
+                                         value: Date.UTC(2016,6,1),
+                                         color: colors[2]
+                                     },
+                                     {
+                                         color: colors[5]
+                                     }]
+                                     }
+                                 ]
+                             });
+                         }
+                     });
+                   	 
+                   	 
+                   	 $.ajax({
+                         data:{
+                             hotelId:${hotel.hotelId}
+                         },
+                         url: "similiarIncomes.do",
+                         dataType: "json",
+                         success:  function(data){
+                        	 var series = [];
+                        	 for(var i=0;i<data.length;i++)
+                        	{
+                        		s = {};
+                        		s.name=data[i].hotelName;
+                        		s.data = data[i].incomes;
+                   				s.pointStart=Date.UTC(2016,5,17);
+                        		s.pointIntervalUnit='day';
+                        		series[i] = s;
+                        	}
+                             var title = {
+                                     text: '相似店铺对比图',
+                                     x: -20 //center
+                                 };
+//                                 subtitle: {
+//                                     text: 'Source: WorldClimate.com',
+//                                     x: -20
+//                                 },
+                             var xAxis = {
+                            		  type: 'datetime',  
+                                	  dateTimeLabelFormats : { 
+                                          day : '%Y-%m-%d',
+                                      },
+                                      tickInterval: 24 * 3600 * 1000//间隔2天
+                                 };
+                             var yAxis = {
+                                     title: {
+                                         text: '营业额 (元)'
+                                     },
+                                     plotLines: [{
+                                         value: 0,
+                                         width: 1,
+                                         color: '#808080'
+                                     }]
+                                 };
+                             var tooltip = {
+                                     valueSuffix: '元'
+                                 };
+                             var legend = {
+                                     layout: 'vertical',
+                                     align: 'right',
+                                     verticalAlign: 'middle',
+                                     borderWidth: 0
+                                 };
+                             var json = {};
+                             json.title = title;
+                             json.tooltip = tooltip;
+                             json.xAxis = xAxis;
+                             json.yAxis = yAxis;
+                             json.series = series;
+                             json.legend = legend;
+                             $('#ChartCompare').highcharts(json);
+                         
+                         }
+                     });
                     });
                 </script>
             </div>
             <div class="col-lg-6">
                 <div id="ChartCompare" style="min-width:400px;height:400px"></div>
-                <script type="text/javascript">
-                	$(document).ready(function () {
-                		var hotelName = ${hotelName};
-                		var hotelName1 = ${hotelName1};
-                		var hotelName2 = ${hotelName2};
-                		var hotelName3 = ${hotelName3};
-                		var dateList = ${dateList};
-                		var incomeNum = ${incomeNum};
-                		var incomeNum1 = ${incomeNum1};
-                		var incomeNum2 = ${incomeNum2};
-                		var incomeNum3 = ${incomeNum3};
-                		var title = {
-                                text: '相似店铺对比图',
-                                x: -20 //center
-                            };
-//                            subtitle: {
-//                                text: 'Source: WorldClimate.com',
-//                                x: -20
-//                            },
-                        var xAxis = {
-                                categories: dateList
-                            };
-                        var yAxis = {
-                                title: {
-                                    text: '营业额 (元)'
-                                },
-                                plotLines: [{
-                                    value: 0,
-                                    width: 1,
-                                    color: '#808080'
-                                }]
-                            };
-                        var tooltip = {
-                                valueSuffix: '元'
-                            };
-                        var legend = {
-                                layout: 'vertical',
-                                align: 'right',
-                                verticalAlign: 'middle',
-                                borderWidth: 0
-                            };
-                        var series = [{
-                                name: hotelName,
-                                data: incomeNum
-                            }, {
-                                name: hotelName1,
-                                data: incomeNum1
-                            }, {
-                                name: hotelName2,
-                                data: incomeNum2
-                            }, {
-                                name: hotelName3,
-                                data: incomeNum3
-                            }];
-                        
-                        var json = {};
-                        json.title = title;
-                        //json.subtitle = subtitle;
-                        json.tooltip = tooltip;
-                        json.xAxis = xAxis;
-                        json.yAxis = yAxis;
-                        json.series = series;
-                        json.legend = legend;
-                        $('#ChartCompare').highcharts(json);
-                    });
-                </script>
+   
             </div>
         </div>
         <div class="row">
