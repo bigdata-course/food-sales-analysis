@@ -1,10 +1,15 @@
-# food-sales-analysis
+## food-sales-analysis-visualization
 
-# Software Development Environment
+本工程是展示数据分析与预测结果的可视化平台，是一个简易的网站。
+
+## Software Development Environment
 --Java JDK1.8.0_101  
 --apache-tomcat-8.5.6  
---apache-maven-3.3.9  
 --SQL Server 2008 R2  
 --MyEclipse 2014 
 --springMVC  
---hibernate  
+--hibernate
+## 代码运行说明
+--请安装SQLServer2008R2，将数据库还原，由于数据库备份文件较大，所以请到百度云盘下载
+链接：http://pan.baidu.com/s/1pKQmmcN 密码：jegs
+--请安装相应的JDK、部署tomcat，安装MyEclipse
